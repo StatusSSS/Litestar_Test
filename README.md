@@ -7,15 +7,15 @@ cd Litestar_Test
 ## 2. Поднять сервисы
 
 ```bash
-docker-compose up -d
+docker compose up -d --build
 ```
 
 ## 3. Применить миграции
 ```bash
-docker compose exec app litestar database upgrade
+docker compose exec app litestar --app app.asgi:app database upgrade
 ```
 
 ## 4. Открыть Swagger
-### open http://localhost:8000/schema
+#### open http://localhost:8000/schema/docs
 
-### Время выполнения: 02:13 🕦
+#### Время выполнения: 02:13 🕦
