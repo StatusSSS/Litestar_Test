@@ -1,8 +1,8 @@
 """init
 
-Revision ID: 9e49c2f68df6
+Revision ID: bf06e8b7c2af
 Revises: 
-Create Date: 2025-05-10 12:46:59.801690
+Create Date: 2025-05-11 16:18:18.162775
 
 """
 
@@ -27,7 +27,7 @@ sa.EncryptedText = EncryptedText
 sa.StoredObject = StoredObject
 
 # revision identifiers, used by Alembic.
-revision = '9e49c2f68df6'
+revision = 'bf06e8b7c2af'
 down_revision = None
 branch_labels = None
 depends_on = None

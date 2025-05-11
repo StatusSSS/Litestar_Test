@@ -89,7 +89,7 @@ async def run_migrations_online() -> None:
             future=True,
         ),
     )
-    if connectable is None:  # pyright: ignore[reportUnnecessaryComparison]
+    if connectable is None:
         msg = "Could not get engine from config.  Please ensure your `alembic.ini` according to the official Alembic documentation."
         raise RuntimeError(
             msg,
