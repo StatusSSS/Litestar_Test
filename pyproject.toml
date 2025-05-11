@@ -1,22 +1,23 @@
 [tool.poetry]
-name = "user-api"
-version = "0.1.0"
-description = "REST API на LiteStar для управления пользователями"
-authors = ["Narek tg - @NarekPy"]
-packages = [{ include = "app" }]
+name        = "user-api"
+version     = "0.1.0"
+description = "REST API на Litestar для управления пользователями"
+authors     = ["Narek  <tg @NarekPy>"]
+packages    = [{ include = "app" }]
 
 [tool.poetry.dependencies]
-python = "^3.12"
-python-dotenv = "^1"
-litestar = { extras = ["standard", "swagger"], version = "^2" }
-litestar-granian = "^0"
-litestar-asyncpg = "^0"
-advanced-alchemy = "^1.4"
-pydantic = "^2.7"
-pydantic-settings  = "^2.2"
+python              = "^3.12"
+python-dotenv       = "^1.0"
+litestar            = {extras = ["standard", "swagger"], version = ">=2.16,<3.0"}
+litestar-granian    = "^0.12.3"
+litestar-asyncpg    = "^0.3"
+advanced-alchemy    = "^1.4.2"
+pydantic            = "^2.7"
+pydantic-settings   = "^2.2"
+asyncpg             = "^0.29"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24"
-ruff = "^0.4"
-pytest = "^8"
-pytest-asyncio = "^0.23"
+black              = "^24.4"
+ruff               = "^0.4"
+pytest             = "^8.2"
+pytest-asyncio     = "^0.23"
