@@ -1,18 +1,16 @@
+from __future__ import annotations
+
 from datetime import datetime
-from pydantic import BaseModel, Field
+import msgspec
 
 
-class UserBase(BaseModel):
-    name: str = Field(..., max_length=128)
-    surname: str = Field(..., max_length=128)
-
-    model_config = {
-        "from_attributes": True,
-    }
+class UserBase(msgspec.Struct):
+    name: str
+    surname: str
 
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=6, max_length=256)
+    password: str
 
 
 class UserRead(UserBase):
@@ -21,9 +19,7 @@ class UserRead(UserBase):
     updated_at: datetime
 
 
-class UserUpdate(BaseModel):
-    name: str | None = Field(None, max_length=128)
-    surname: str | None = Field(None, max_length=128)
-    password: str | None = Field(default=None, min_length=6, max_length=256)
-
-    model_config = {"from_attributes": True}
+class UserUpdate(msgspec.Struct, kw_only=True, omit_defaults=True):
+    name: str | None = None
+    surname: str | None = None
+    password: str | None = None

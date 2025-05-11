@@ -1,25 +1,28 @@
-from functools import lru_cache
+from __future__ import annotations
+
+from dataclasses import dataclass
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
-from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # /app/..
 
-class Settings(BaseSettings):
-    debug: bool = Field(False, env="DEBUG")
-
-    database_url: str = Field(
+@dataclass(slots=True, frozen=True)
+class Settings:
+    debug: bool = os.getenv("DEBUG", "0").lower() in {"1", "true", "yes", "on"}
+    database_url: str = os.getenv(
+        "DATABASE_URL",
         "postgresql+asyncpg://postgres:postgres@db:5432/postgres",
-        env="DATABASE_URL",
     )
 
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-        case_sensitive=False,
-    )
 
-@lru_cache
+_settings: Settings | None = None
+
+
 def get_settings() -> Settings:
-    return Settings()
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings
