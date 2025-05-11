@@ -16,6 +16,6 @@ docker compose exec app litestar database upgrade
 ```
 
 ## 4. Открыть Swagger
-open http://localhost:8000/schema
+### open http://localhost:8000/schema
 
-Время выполнения: 02:13 🕦
+### Время выполнения: 02:13 🕦
