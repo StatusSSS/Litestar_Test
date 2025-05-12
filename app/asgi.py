@@ -10,11 +10,8 @@ from advanced_alchemy.extensions.litestar.plugins.init.config import (
 )
 
 from .routes import UserController
-from .settings import get_settings
+from .settings import settings
 
-
-
-settings = get_settings()
 
 sqlalchemy_plugin = SQLAlchemyInitPlugin(
     SQLAlchemyAsyncConfig(
@@ -29,7 +26,7 @@ app = Litestar(
     openapi_config=OpenAPIConfig(
         title="User Management API",
         version="1.0.0",
-        description="CRUD для таблицы user",
+        description="CRUD для таблицы user (v1)",
         render_plugins=[SwaggerRenderPlugin(path="/docs")],
     ),
     debug=settings.debug,

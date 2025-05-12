@@ -1,0 +1,8 @@
+litestar[standard]==2.*
+litestar-granian==0.*
+litestar-asyncpg==0.*
+advanced-alchemy[cli]==1.4.2
+msgspec==0.18.6
+asyncpg==0.29.*
+python-dotenv==1.0.*
+alembic==1.13.*
