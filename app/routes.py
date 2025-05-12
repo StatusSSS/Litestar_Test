@@ -3,8 +3,8 @@ from typing import Sequence
 from litestar import Controller, delete, get, post, put
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import UserCreate, UserRead, UserUpdate
-from .cruds import CRUDUser
+from app.schemas import UserCreate, UserRead, UserUpdate
+from app.cruds import CRUDUser
 
 
 def _to_read(model) -> UserRead:

@@ -5,7 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from litestar.exceptions import HTTPException
 
-from .models import User
+from app.models import User
 
 
 class CRUDUser:
