@@ -23,3 +23,10 @@ class UserUpdate(msgspec.Struct, kw_only=True, omit_defaults=True):
     name: str | None = None
     surname: str | None = None
     password: str | None = None
+
+
+class PaginatedUserResponse(msgspec.Struct):
+    page: int
+    limit: int
+    count: int
+    users: list[UserRead]

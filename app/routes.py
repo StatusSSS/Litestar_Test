@@ -2,8 +2,10 @@ from typing import Sequence
 
 from litestar import Controller, delete, get, post, put
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing_extensions import Annotated
+from litestar.params import Parameter
 
-from app.schemas import UserCreate, UserRead, UserUpdate
+from app.schemas import UserCreate, UserRead, UserUpdate, PaginatedUserResponse
 from app.cruds import CRUDUser
 
 
@@ -27,19 +29,24 @@ class UserController(Controller):
         user = await CRUDUser.create(session, data)
         return _to_read(user)
 
-
     @get(summary="Список пользователей")
     async def list_users(
-        self,
-        session: AsyncSession,
-        page: int = 1,
-        page_size: int = 20,
-    ) -> Sequence[UserRead]:
-        page = max(page, 1)
-        page_size = max(1, min(page_size, 100))
+            self,
+            session: AsyncSession,
+            page: Annotated[int, Parameter(query="page", ge=1)] = 1,
+            page_size: Annotated[int, Parameter(query="page_size", ge=1, le=100)] = 20,
+    ) -> PaginatedUserResponse:
         offset = (page - 1) * page_size
         users = await CRUDUser.list(session, offset=offset, limit=page_size)
-        return [_to_read(u) for u in users]
+
+        total = await CRUDUser.count(session)
+
+        return PaginatedUserResponse(
+            page=page,
+            limit=page_size,
+            count=total,
+            users=[_to_read(u) for u in users],
+        )
 
 
     @get(path="/{user_id:int}", summary="Получить пользователя")

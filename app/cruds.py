@@ -1,7 +1,7 @@
 from typing import Sequence
 
 import msgspec
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from litestar.exceptions import HTTPException
 
@@ -54,3 +54,8 @@ class CRUDUser:
         user = await CRUDUser.get(session, user_id)
         await session.delete(user)
         await session.commit()
+
+    @staticmethod
+    async def count(session: AsyncSession) -> int:
+        result = await session.execute(select(func.count(User.id)))
+        return result.scalar_one()
